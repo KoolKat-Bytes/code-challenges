@@ -1,0 +1,9 @@
+/* Automatically generated, DO NOT MODIFY */
+
+#include <iostream>
+
+class @PROJECT@
+{
+public:
+    static void main(std::istream &is, std::ostream &os);
+};

@@ -1,0 +1,72 @@
+/* Automatically generated using cmake_configure(test.cpp.in), DO NOT MODIFY */
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+#include "${PROJECT_NAME}.hpp"
+
+int main(int argc, char **argv) {
+    int ret = 0;
+
+    if (argc != 3) {
+        std::cerr << "usage: exec <INPUT_FILE> <OUTPUT_FILE>" << std::endl;
+        return -1;
+    }
+
+    char *test_in = argv[1];
+    std::ifstream in(test_in);
+
+    if (!in.is_open()) {
+        std::cerr << "failed to open file "
+            << "'" << test_in << "'"
+            << std::endl;
+        return -2;
+    }
+
+    std::string s_res;
+    std::stringstream ss_res(s_res);
+    ${PROJECT_NAME}::main(in, ss_res);
+
+    in.close();
+
+    char *test_exp = argv[2];
+    std::ifstream exp(test_exp);
+
+    if (!exp.is_open()) {
+        std::cerr << "failed to open file "
+            << "'" << test_exp << "'"
+            << std::endl;
+        return -3;
+    }
+
+    std::string res_line, exp_line;
+
+    /* Try to read first line to check against empty results */
+    getline(ss_res, res_line);
+    do {
+        if (res_line.empty()) {
+            std::cerr << "Program did not provide any output"
+                      << " OR extra new line at the end of file"
+                      << std::endl;
+
+            ret = -4;
+            break;
+        }
+        std::string exp_line;
+        getline(exp, exp_line);
+        std::cerr << "Expected: " << exp_line << std::endl
+                      << "Got: " << res_line << std::endl;
+        if(0 != exp_line.compare(res_line)) {
+            std::cerr << "Expected and Read DOES NOT MATCH !" << std::endl;
+            ret = -4;
+            break;
+        }
+    } while (getline(ss_res, res_line));
+
+    exp.close();
+
+out:
+    return ret;
+}

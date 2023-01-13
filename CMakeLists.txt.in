@@ -1,0 +1,67 @@
+# AUTO GENERATED: DO NOT MODIFY !
+
+# set minimum cmake version
+cmake_minimum_required(VERSION 3.0.0)
+
+# project name and language
+project(@PROJECT@ VERSION 0.1.0)
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/include.in/header.hpp.in
+    ${PROJECT_SOURCE_DIR}/include/@PROJECT@.hpp
+)
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/src.in/test.cpp.in
+    ${PROJECT_SOURCE_DIR}/src/test.cpp)
+
+include_directories(
+        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/src
+)
+
+file(GLOB SRCS
+        "${PROJECT_SOURCE_DIR}/include/*.hpp"
+        "${PROJECT_SOURCE_DIR}/src/*.cpp"
+        )
+
+# ship as a library
+add_library(${PROJECT_NAME} ${SRCS})
+
+# testing binary
+set(TEST_BINARY test_${PROJECT_NAME})
+add_executable(test_${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/src/test.cpp")
+target_link_libraries(${TEST_BINARY} PRIVATE ${PROJECT_NAME})
+
+# enable testing functionnality
+enable_testing()
+
+file(GLOB INPUT_FILES
+    "${PROJECT_SOURCE_DIR}/input/input*.txt")
+
+file(GLOB OUTPUT_FILES
+    "${PROJECT_SOURCE_DIR}/input/output*.txt")
+
+# TODO: replace with ZIP_LISTS when upgrading to CMake 3.17
+list(LENGTH INPUT_FILES N_INPUT_FILES)
+math(EXPR LEN "${N_INPUT_FILES} - 1")
+
+foreach(VAL RANGE ${LEN})
+    list(GET INPUT_FILES ${VAL} INPUT)
+    list(GET OUTPUT_FILES ${VAL} OUTPUT)
+
+    string(REGEX MATCH "input[1-9]+" INPUT_NAME "${INPUT}")
+    set(TEST_NAME "test_${PROJECT_NAME}_${INPUT_NAME}")
+
+    message(INFO " Adding test '${TEST_NAME}'")
+
+    # define tests
+    add_test(
+        NAME ${TEST_NAME}
+        COMMAND $<TARGET_FILE:${TEST_BINARY}> ${INPUT} ${OUTPUT}
+    )
+
+    set_tests_properties(${TEST_NAME}
+        PROPERTIES CMAKE_ROLE CTEST)
+
+endforeach()
