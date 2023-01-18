@@ -1,4 +1,5 @@
 list(APPEND PROJECTS
+        "BestProtection"
         "FutureEnergy"
         "SolarStormPrediction"
         "SoundToWords")
