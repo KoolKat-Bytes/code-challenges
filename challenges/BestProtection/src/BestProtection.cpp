@@ -24,7 +24,6 @@ int getControlCount(map<int, set<int> > ctrlMap, int id) {
     return count;
 }
 
-
 static void is_getPair(istream& is, int& a, int& b) {
     string line;
 
@@ -39,6 +38,7 @@ void BestProtection::main(istream& is, ostream& os) {
     int N, V;
     is_getPair(is, N, V);
 
+    /* NOTE: using map and set is not the best choice performance-wise */
     map<int, set<int> > ctrlMap;
 
     for (int i = 0; i < N; i++) {
