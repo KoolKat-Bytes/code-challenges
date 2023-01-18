@@ -1,5 +1,5 @@
 list(APPEND PROJECTS
-        "ChallengeTemplate")
+        "SoundToWords")
 
 foreach(PROJECT IN LISTS PROJECTS)
     configure_file(
