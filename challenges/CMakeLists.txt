@@ -1,5 +1,6 @@
 list(APPEND PROJECTS
         "FutureEnergy"
+        "SolarStormPrediction"
         "SoundToWords")
 
 foreach(PROJECT IN LISTS PROJECTS)
