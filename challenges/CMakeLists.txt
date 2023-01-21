@@ -2,8 +2,10 @@ list(APPEND PROJECTS
         "BestProtection"
         "FutureBalance"
         "FutureEnergy"
+        "FutureVision"
         "SolarStormPrediction"
-        "SoundToWords")
+        "SoundToWords"
+        )
 
 foreach(PROJECT IN LISTS PROJECTS)
     configure_file(
