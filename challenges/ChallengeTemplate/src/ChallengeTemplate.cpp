@@ -3,13 +3,13 @@
 
 #include "ChallengeTemplate.hpp"
 
-usign namespace std;
+using namespace std;
 
 void ChallengeTemplate::main(istream& is, ostream& os) {
     string line;
 
-    while(getline(is, line)) {
-        /*read data */
+    while (getline(is, line)) {
+        /* read data */
 
         /* doSomething() */
 
