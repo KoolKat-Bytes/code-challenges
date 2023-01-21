@@ -3,6 +3,7 @@ list(APPEND PROJECTS
         "FutureBalance"
         "FutureEnergy"
         "FutureVision"
+        "RebuildInfrastructure"
         "SolarStormPrediction"
         "SoundToWords"
         )
