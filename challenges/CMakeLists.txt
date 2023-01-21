@@ -4,6 +4,7 @@ list(APPEND PROJECTS
         "FutureEnergy"
         "FutureVision"
         "RebuildInfrastructure"
+        "ReverseAlienNotation"
         "SolarStormPrediction"
         "SoundToWords"
         )
